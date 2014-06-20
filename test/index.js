@@ -2,6 +2,7 @@
 var assert = require('assert');
 var equal = require('assert-dir-equal');
 var Metalsmith = require('metalsmith');
+var fileCompare = require('file-compare');
 var templates = require('..');
 
 describe('metalsmith-templates', function(){
@@ -20,7 +21,7 @@ describe('metalsmith-templates', function(){
       .use(templates('swig'))
       .build(function(err){
         if (err) return done(err);
-        equal('test/fixtures/basic/expected', 'test/fixtures/basic/build');
+        equal('test/fixtures/enginestring/expected', 'test/fixtures/enginestring/build');
         done();
       });
   });
@@ -73,6 +74,34 @@ describe('metalsmith-templates', function(){
         if (err) return done(err);
         equal('test/fixtures/metadata/expected', 'test/fixtures/metadata/build');
         done();
+      });
+  });
+
+  it('should work with files in nested directories', function(done){
+    Metalsmith('test/fixtures/nested-dir')
+      .metadata({ title: 'Global Title' })
+      .use(templates({ engine: 'swig' }))
+      .build(function(err){
+        if (err) return done(err);
+        equal('test/fixtures/nested-dir/expected', 'test/fixtures/nested-dir/build');
+        done();
+      });
+  });
+
+  it('should not change binary files', function(done){
+    Metalsmith('test/fixtures/with-binary-files')
+      .use(templates({ engine: 'mustache' }))
+      .build(function(err){
+        if (err) return done(err);
+        equal('test/fixtures/with-binary-files/expected', 'test/fixtures/with-binary-files/build');
+        // compare binaries to sense changes
+        var fileExpected = 'test/fixtures/with-binary-files/expected/TestImage.jpg';
+        var fileBuilt = 'test/fixtures/with-binary-files/build/TestImage.jpg';
+        fileCompare.compare(fileExpected, fileBuilt, function(result, err) {
+          if (err) return done(err);
+          assert.equal(result, true, 'Binary changed.')
+          done();
+        });
       });
   });
 });
