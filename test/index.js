@@ -35,6 +35,16 @@ describe('metalsmith-templates', function(){
       });
   });
 
+  it('should apply both inPlace and external template', function(done){
+    Metalsmith('test/fixtures/in-place-plus-tmpl')
+      .use(templates({ engine: 'swig', inPlace: true }))
+      .build(function(err){
+        if (err) return done(err);
+        equal('test/fixtures/in-place-plus-tmpl/expected', 'test/fixtures/in-place-plus-tmpl/build');
+        done();
+      });
+  });
+
   it('should accept a pattern to match', function(done){
     Metalsmith('test/fixtures/pattern')
       .use(templates({ engine: 'swig', pattern: '*.md' }))
