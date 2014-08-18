@@ -88,7 +88,7 @@ describe('metalsmith-templates', function(){
 
   it('should apply master template', function(done){
     Metalsmith('test/fixtures/master')
-      .use(templates({ engine: 'swig', master: 'master.html', default: 'default.html' }))
+      .use(templates({ engine: 'swig', master: 'master.html', default: 'default.html', pattern: '*.md' }))
       .build(function(err){
         if (err) return done(err);
         equal('test/fixtures/master/expected', 'test/fixtures/master/build');
