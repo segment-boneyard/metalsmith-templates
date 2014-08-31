@@ -90,7 +90,6 @@ describe('metalsmith-templates', function(){
     Metalsmith('test/fixtures/extends')
       .use(templates({
         engine: 'swig',
-        useExtends: true,
         extendsPattern: '{% extends "%s" %}'
       }))
       .build(function(err){
@@ -100,11 +99,10 @@ describe('metalsmith-templates', function(){
       });
   });
 
-  it('should extend using default block', function(done){
+   it('should extend using default block', function(done){
     Metalsmith('test/fixtures/extends-def_block')
       .use(templates({
         engine: 'swig',
-        useExtends: true,
         defaultBlock: 'content',
         extendsPattern: '{% extends "%s" %}',
         blockPattern: [ '{% block %s %}', '{% endblock %}' ]
