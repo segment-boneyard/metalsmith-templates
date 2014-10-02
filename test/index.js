@@ -85,4 +85,14 @@ describe('metalsmith-templates', function(){
         done();
       });
   });
+
+  it('should allow templates to have templates with the recursiveRender option.', function(done){
+    Metalsmith('test/fixtures/recursive-render')
+      .use(templates({ engine: 'swig', recursiveRender: true }))
+      .build(function(err){
+        if (err) return done(err);
+        equal('test/fixtures/recursive-render/expected', 'test/fixtures/recursive-render/build');
+        done();
+      });
+  });
 });
