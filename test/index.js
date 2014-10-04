@@ -85,4 +85,49 @@ describe('metalsmith-templates', function(){
         done();
       });
   });
+
+  it('should extend templates', function(done){
+    Metalsmith('test/fixtures/extends')
+      .use(templates({
+        engine: 'swig',
+        extendsPattern: '{% extends "%s" %}'
+      }))
+      .build(function(err){
+        if (err) return done(err);
+        equal('test/fixtures/extends/expected', 'test/fixtures/extends/build');
+        done();
+      });
+  });
+
+   it('should extend using default block', function(done){
+    Metalsmith('test/fixtures/extends-def_block')
+      .use(templates({
+        engine: 'swig',
+        defaultBlock: 'content',
+        extendsPattern: '{% extends "%s" %}',
+        blockPattern: [ '{% block %s %}', '{% endblock %}' ]
+      }))
+      .build(function(err){
+        if (err) return done(err);
+        equal('test/fixtures/extends-def_block/expected', 'test/fixtures/extends-def_block/build');
+        done();
+      });
+
+  });
+
+  it('should extend using default extends', function(done){
+    Metalsmith('test/fixtures/extends-def_extends')
+      .use(templates({
+        engine: 'swig',
+        useExtends: true,
+        defaultExtends: 'base.html',
+        extendsPattern: '{% extends "%s" %}'
+      }))
+      .build(function(err){
+        if (err) return done(err);
+        equal('test/fixtures/extends-def_extends/expected', 'test/fixtures/extends-def_extends/build');
+        done();
+      });
+  });
+
 });
