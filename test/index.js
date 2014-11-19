@@ -35,6 +35,28 @@ describe('metalsmith-templates', function(){
       });
   });
 
+  it('partials should work', function(done){
+    Metalsmith('test/fixtures/partials')
+      .metadata({ partials: { partial: '_partial' } })
+      .use(templates({ engine: 'handlebars' }))
+      .build(function(err){
+        if (err) return done(err);
+        equal('test/fixtures/partials/expected', 'test/fixtures/partials/build');
+        done();
+      });
+  });
+
+  it('partials should work when using inPlace option', function(done){
+    Metalsmith('test/fixtures/in-place-partials')
+      .metadata({ partials: { partial: '_partial' } })
+      .use(templates({ engine: 'handlebars', inPlace: true }))
+      .build(function(err){
+        if (err) return done(err);
+        equal('test/fixtures/in-place-partials/expected', 'test/fixtures/in-place-partials/build');
+        done();
+      });
+  });
+
   it('should accept a pattern to match', function(done){
     Metalsmith('test/fixtures/pattern')
       .use(templates({ engine: 'swig', pattern: '*.md' }))
