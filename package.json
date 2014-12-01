@@ -14,7 +14,8 @@
     "debug": "~0.7.4",
     "extend": "~1.2.1",
     "multimatch": "^0.1.0",
-    "lodash.omit": "~2.4.1"
+    "lodash.omit": "~2.4.1",
+    "front-matter": "~0.2.0"
   },
   "devDependencies": {
     "assert-dir-equal": "0.0.1",
