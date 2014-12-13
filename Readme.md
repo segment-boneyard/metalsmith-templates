@@ -28,7 +28,8 @@
   "plugins": {
     "metalsmith-templates": {
       "engine": "handlebars",
-      "directory": "templates"
+      "directory": "templates",
+      "default": "layout.html"
     }
   }
 }
@@ -49,8 +50,32 @@ metalsmith.use(templates('swig'));
 ```js
 metalsmith.use(templates({
   engine: 'swig',
-  directory: 'templates'
+  directory: 'templates',
+  default: 'layout.html'
 }));
+```
+
+## File Usage
+
+  To render a template for a file, set its `template` property to the template's filename, either through its front-matter:
+
+```
+---
+template: layout.html
+---
+```
+
+  Or through a plugin:
+
+```js
+function () {
+  return function addTemplate (files, metalsmith, done) {
+    for (var file in files) {
+      files[file].template = 'layout.html';
+    }
+    done();
+  };
+}
 ```
 
 ## License
