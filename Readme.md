@@ -53,6 +53,27 @@ metalsmith.use(templates({
 }));
 ```
 
+## Partials
+*Partials* are smaller fragments of templates, in `handlebars` these can be defined as in the example below: 
+```js
+metalsmith.use(templates({
+  engine: 'handlebars',
+  directory: 'templates',
+  partials: {
+    footer: 'partials/footer',
+    header: 'partials/header',
+    post: 'partials/post',
+  }
+}));
+```
+
+The partials will exist in the directory pointed to by `directory`. The `footer` partial will have the path `templates/partials/footer.html`.
+
+Now these partials could be used with `handlebars` like this
+```
+{{>footer}}
+```
+
 ## License
 
   MIT
