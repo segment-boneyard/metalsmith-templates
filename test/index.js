@@ -85,4 +85,21 @@ describe('metalsmith-templates', function(){
         done();
       });
   });
+
+  it('should be capable of processing partials multiple times', function(done){
+    var instance = Metalsmith('test/fixtures/partials')
+      .use(templates({
+        engine: 'handlebars',
+        partials: { nav: 'partials/nav'}
+      }));
+
+    instance.build(function(err){
+      if (err) return done(err);
+      instance.build(function(err){
+        if (err) return done(err);
+        equal('test/fixtures/partials/expected', 'test/fixtures/partials/build');
+        done();
+      });
+    });
+  });
 });
