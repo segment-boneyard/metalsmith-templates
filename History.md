@@ -1,4 +1,8 @@
 
+0.6.1 - February 28, 2015
+-------------------------
+* fix for using partials more than once
+
 0.6.0 - October 3, 2014
 -----------------------
 * fix to use `path` for metalsmith `1.0.0`
