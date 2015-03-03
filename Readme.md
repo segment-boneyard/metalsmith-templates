@@ -34,7 +34,7 @@
 }
 ```
 
-## Javascript Usage
+## JavaScript Usage
 
   For the simplest use case, just pass your templating engine:
 
