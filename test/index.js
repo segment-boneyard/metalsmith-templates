@@ -78,7 +78,7 @@ describe('metalsmith-templates', function(){
 
   it('should preserve binary files', function(done){
     Metalsmith('test/fixtures/binary')
-      .use(templates({ engine: 'swig' }))
+      .use(templates({ engine: 'handlebars', pattern: '**', inPlace: true }))
       .build(function(err){
         if (err) return done(err);
         equal('test/fixtures/binary/expected', 'test/fixtures/binary/build');

@@ -1,4 +1,8 @@
 
+0.7.0 - March 29, 2015
+----------------------
+* ignore binary files
+
 0.6.1 - February 28, 2015
 -------------------------
 * fix for using partials more than once
